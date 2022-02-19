@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public class DumplingLogger{
 
-    private Logger log;
+    private final Logger log;
 
     private final ThreadLocal<Map<String, String>> logContents = new ThreadLocal<>();
 
@@ -22,7 +22,8 @@ public class DumplingLogger{
     }
 
     public DumplingLogger itemId(Object value) {
-        Optional.ofNullable(value).ifPresent(v -> logContents.get().put("itemId", v.toString()));
+        value = Optional.ofNullable(value).orElse("null");
+        logContents.get().put("itemId", value.toString());
         return this;
     }
 
