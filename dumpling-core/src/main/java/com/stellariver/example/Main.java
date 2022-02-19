@@ -13,6 +13,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        dumplingLogger.itemId(1L).log("test", new Exception());
+        dumplingLogger.itemId(1L)
+                .log("test", new Exception());
     }
 }
