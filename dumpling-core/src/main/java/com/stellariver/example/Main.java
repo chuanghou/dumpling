@@ -6,14 +6,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Main {
 
-    private static final DumplingLogger dumplingLogger;
+    private static final DumplingLogger logger;
 
     static {
-        dumplingLogger = new DumplingLogger(log);
+        logger = new DumplingLogger(log);
     }
 
     public static void main(String[] args) {
-        dumplingLogger.itemId(1L)
-                .log("test", new Exception());
+        logger.with("itemId", 1L).info("test");
     }
 }

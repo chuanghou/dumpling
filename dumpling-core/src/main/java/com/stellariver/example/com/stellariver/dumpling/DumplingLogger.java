@@ -22,9 +22,12 @@ public class DumplingLogger implements Logger{
         this.tempLogContents.set(new HashMap<>());
     }
 
-    public DumplingLogger itemId(Object value) {
-        value = Optional.ofNullable(value).orElse("null");
-        logContents.get().put("itemId", value.toString());
+    public DumplingLogger with(String key, Object value) {
+        if (key == null) {
+            log.error("log key shouldn't be null");
+        }
+        value = Optional.ofNullable(key).orElse("null");
+        logContents.get().put(key, value.toString());
         return this;
     }
 
@@ -62,178 +65,238 @@ public class DumplingLogger implements Logger{
     }
 
     @Override
-    public void trace(String s) {
-        log.trace(s);
+    public void trace(String msg) {
+        beforeLog();
+        log.trace(msg);
+        afterLog();
     }
 
     @Override
-    public void trace(String s, Object o) {
-        log.trace(s, o);
+    public void trace(String format, Object arg) {
+        beforeLog();
+        log.trace(format, arg);
+        afterLog();
     }
 
     @Override
-    public void trace(String s, Object o, Object o1) {
-        log.trace(s, o, o1);
+    public void trace(String format, Object arg1, Object arg2) {
+        beforeLog();
+        log.trace(format, arg1, arg2);
+        afterLog();
     }
 
     @Override
-    public void trace(String s, Object... objects) {
-
+    public void trace(String format, Object... arguments) {
+        beforeLog();
+        log.trace(format, arguments);
+        afterLog();
     }
 
     @Override
-    public void trace(String s, Throwable throwable) {
-
+    public void trace(String msg, Throwable t) {
+        beforeLog();
+        log.trace(msg, t);
+        afterLog();
     }
 
     @Override
     public boolean isTraceEnabled(Marker marker) {
-        return false;
+        return log.isTraceEnabled(marker);
     }
 
     @Override
-    public void trace(Marker marker, String s) {
-
+    public void trace(Marker marker, String msg) {
+        beforeLog();
+        log.trace(marker, msg);
+        afterLog();
     }
 
     @Override
-    public void trace(Marker marker, String s, Object o) {
-
+    public void trace(Marker marker, String format, Object arg) {
+        beforeLog();
+        log.trace(marker, format, arg);
+        afterLog();
     }
 
     @Override
-    public void trace(Marker marker, String s, Object o, Object o1) {
-
+    public void trace(Marker marker, String format, Object arg1, Object arg2) {
+        beforeLog();
+        log.trace(marker, format, arg1, arg2);
+        afterLog();
     }
 
     @Override
-    public void trace(Marker marker, String s, Object... objects) {
-
+    public void trace(Marker marker, String format, Object... argArray) {
+        beforeLog();
+        log.trace(marker, format, argArray);
+        afterLog();
     }
 
     @Override
-    public void trace(Marker marker, String s, Throwable throwable) {
-
+    public void trace(Marker marker, String msg, Throwable t) {
+        beforeLog();
+        log.trace(marker, msg, t);
+        afterLog();
     }
 
     @Override
     public boolean isDebugEnabled() {
-        return false;
+        return log.isDebugEnabled();
     }
 
     @Override
-    public void debug(String s) {
-
+    public void debug(String msg) {
+        beforeLog();
+        log.debug(msg);
+        afterLog();
     }
 
     @Override
-    public void debug(String s, Object o) {
-
+    public void debug(String format, Object arg) {
+        beforeLog();
+        log.debug(format, arg);
+        afterLog();
     }
 
     @Override
-    public void debug(String s, Object o, Object o1) {
-
+    public void debug(String format, Object arg1, Object arg2) {
+        beforeLog();
+        log.debug(format, arg1, arg2);
+        afterLog();
     }
 
     @Override
-    public void debug(String s, Object... objects) {
-
+    public void debug(String format, Object... arguments) {
+        beforeLog();
+        log.debug(format, arguments);
+        afterLog();
     }
 
     @Override
-    public void debug(String s, Throwable throwable) {
-
+    public void debug(String msg, Throwable t) {
+        beforeLog();
+        log.debug(msg, t);
+        afterLog();
     }
 
     @Override
     public boolean isDebugEnabled(Marker marker) {
-        return false;
+        return log.isDebugEnabled(marker);
     }
 
     @Override
-    public void debug(Marker marker, String s) {
-
+    public void debug(Marker marker, String msg) {
+        beforeLog();
+        log.debug(marker, msg);
+        afterLog();
     }
 
     @Override
-    public void debug(Marker marker, String s, Object o) {
-
+    public void debug(Marker marker, String format, Object arg) {
+        beforeLog();
+        log.debug(marker, format, arg);
+        afterLog();
     }
 
     @Override
-    public void debug(Marker marker, String s, Object o, Object o1) {
-
+    public void debug(Marker marker, String format, Object arg1, Object arg2) {
+        beforeLog();
+        log.debug(marker, format, arg1, arg2);
+        afterLog();
     }
 
     @Override
-    public void debug(Marker marker, String s, Object... objects) {
-
+    public void debug(Marker marker, String format, Object... argArray) {
+        beforeLog();
+        log.debug(marker, format, argArray);
+        afterLog();
     }
 
     @Override
-    public void debug(Marker marker, String s, Throwable throwable) {
-
+    public void debug(Marker marker, String msg, Throwable t) {
+        beforeLog();
+        log.debug(marker, msg, t);
+        afterLog();
     }
 
     @Override
     public boolean isInfoEnabled() {
-        return false;
+        return log.isInfoEnabled();
     }
 
     @Override
-    public void info(String s) {
-
+    public void info(String msg) {
+        beforeLog();
+        log.info(msg);
+        afterLog();
     }
 
     @Override
-    public void info(String s, Object o) {
-
+    public void info(String format, Object arg) {
+        beforeLog();
+        log.info(format, arg);
+        afterLog();
     }
 
     @Override
-    public void info(String s, Object o, Object o1) {
-
+    public void info(String format, Object arg1, Object arg2) {
+        beforeLog();
+        log.info(format, arg1, arg2);
+        afterLog();
     }
 
     @Override
-    public void info(String s, Object... objects) {
-
+    public void info(String format, Object... arguments) {
+        beforeLog();
+        log.info(format, arguments);
+        afterLog();
     }
 
     @Override
-    public void info(String s, Throwable throwable) {
-
+    public void info(String msg, Throwable t) {
+        beforeLog();
+        log.info(msg, t);
+        afterLog();
     }
 
     @Override
     public boolean isInfoEnabled(Marker marker) {
-        return false;
+        return log.isInfoEnabled(marker);
     }
 
     @Override
-    public void info(Marker marker, String s) {
-
+    public void info(Marker marker, String msg) {
+        beforeLog();
+        log.trace(marker, msg);
+        afterLog();
     }
 
     @Override
-    public void info(Marker marker, String s, Object o) {
-
+    public void info(Marker marker, String format, Object arg) {
+        beforeLog();
+        log.info(marker, format, arg);
+        afterLog();
     }
 
     @Override
-    public void info(Marker marker, String s, Object o, Object o1) {
-
+    public void info(Marker marker, String format, Object arg1, Object arg2) {
+        beforeLog();
+        log.info(marker, format, arg1, arg2);
+        afterLog();
     }
 
     @Override
-    public void info(Marker marker, String s, Object... objects) {
-
+    public void info(Marker marker, String format, Object... argArray) {
+        beforeLog();
+        log.info(marker, format, argArray);
+        afterLog();
     }
 
     @Override
-    public void info(Marker marker, String s, Throwable throwable) {
-
+    public void info(Marker marker, String msg, Throwable t) {
+        beforeLog();
+        log.info(marker, msg, t);
+        afterLog();
     }
 
     @Override
@@ -242,27 +305,27 @@ public class DumplingLogger implements Logger{
     }
 
     @Override
-    public void warn(String s) {
+    public void warn(String msg) {
 
     }
 
     @Override
-    public void warn(String s, Object o) {
+    public void warn(String format, Object arg) {
 
     }
 
     @Override
-    public void warn(String s, Object... objects) {
+    public void warn(String format, Object... arguments) {
 
     }
 
     @Override
-    public void warn(String s, Object o, Object o1) {
+    public void warn(String format, Object arg1, Object arg2) {
 
     }
 
     @Override
-    public void warn(String s, Throwable throwable) {
+    public void warn(String msg, Throwable t) {
 
     }
 
@@ -272,87 +335,116 @@ public class DumplingLogger implements Logger{
     }
 
     @Override
-    public void warn(Marker marker, String s) {
-
+    public void warn(Marker marker, String msg) {
+        beforeLog();
+        log.warn(marker, msg);
+        afterLog();
     }
 
     @Override
-    public void warn(Marker marker, String s, Object o) {
-
+    public void warn(Marker marker, String format, Object arg) {
+        beforeLog();
+        log.warn(marker, format, arg);
+        afterLog();
     }
 
     @Override
-    public void warn(Marker marker, String s, Object o, Object o1) {
-
+    public void warn(Marker marker, String format, Object arg1, Object arg2) {
+        beforeLog();
+        log.warn(marker, format, arg1, arg2);
+        afterLog();
     }
 
     @Override
-    public void warn(Marker marker, String s, Object... objects) {
-
+    public void warn(Marker marker, String format, Object... argArray) {
+        beforeLog();
+        log.warn(marker, format, argArray);
+        afterLog();
     }
 
     @Override
-    public void warn(Marker marker, String s, Throwable throwable) {
-
+    public void warn(Marker marker, String msg, Throwable t) {
+        beforeLog();
+        log.warn(marker, msg, t);
+        afterLog();
     }
-
     @Override
     public boolean isErrorEnabled() {
-        return false;
+        return log.isErrorEnabled();
     }
 
     @Override
-    public void error(String s) {
-
+    public void error(String msg) {
+        beforeLog();
+        log.error(msg);
+        afterLog();
     }
 
     @Override
-    public void error(String s, Object o) {
-
+    public void error(String format, Object arg) {
+        beforeLog();
+        log.error(format, arg);
+        afterLog();
     }
 
     @Override
-    public void error(String s, Object o, Object o1) {
-
+    public void error(String format, Object arg1, Object arg2) {
+        beforeLog();
+        log.error(format, arg1, arg2);
+        afterLog();
     }
 
     @Override
-    public void error(String s, Object... objects) {
-
+    public void error(String format, Object... arguments) {
+        beforeLog();
+        log.error(format, arguments);
+        afterLog();
     }
 
     @Override
-    public void error(String s, Throwable throwable) {
-
+    public void error(String msg, Throwable t) {
+        beforeLog();
+        log.error(msg, t);
+        afterLog();
     }
 
     @Override
     public boolean isErrorEnabled(Marker marker) {
-        return false;
+        return log.isErrorEnabled(marker);
     }
 
     @Override
-    public void error(Marker marker, String s) {
-
+    public void error(Marker marker, String msg) {
+        beforeLog();
+        log.error(marker, msg);
+        afterLog();
     }
 
     @Override
-    public void error(Marker marker, String s, Object o) {
-
+    public void error(Marker marker, String format, Object arg) {
+        beforeLog();
+        log.error(marker, format, arg);
+        afterLog();
     }
 
     @Override
-    public void error(Marker marker, String s, Object o, Object o1) {
-
+    public void error(Marker marker, String format, Object arg1, Object arg2) {
+        beforeLog();
+        log.error(marker, format, arg1, arg2);
+        afterLog();
     }
 
     @Override
-    public void error(Marker marker, String s, Object... objects) {
-
+    public void error(Marker marker, String format, Object... argArray) {
+        beforeLog();
+        log.error(marker, format, argArray);
+        afterLog();
     }
 
     @Override
-    public void error(Marker marker, String s, Throwable throwable) {
-
+    public void error(Marker marker, String msg, Throwable t) {
+        beforeLog();
+        log.error(marker, msg, t);
+        afterLog();
     }
 }
