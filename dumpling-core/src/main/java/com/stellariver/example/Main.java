@@ -1,18 +1,20 @@
 package com.stellariver.example;
 
 import com.stellariver.example.com.stellariver.dumpling.DumplingLogger;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 
-@Slf4j
 public class Main {
 
-    private static final DumplingLogger logger;
-
+    private static final DumplingLogger log;
+    private static final Logger logger = org.slf4j.LoggerFactory.getLogger(Main.class);
     static {
-        logger = new DumplingLogger(log);
+        log = new DumplingLogger(logger);
     }
 
     public static void main(String[] args) {
-        logger.with("itemId", 1L).info("test");
+        log.with("itemId", 1L)
+                .with("test", 1)
+                .with("im", 34)
+                .info("test");
     }
 }

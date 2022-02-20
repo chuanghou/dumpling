@@ -27,6 +27,10 @@ public class DumplingLogger implements Logger{
             log.error("log key shouldn't be null");
         }
         value = Optional.ofNullable(key).orElse("null");
+        if (logContents.get().containsKey(key)) {
+            log.error("log key:{} already exists, it may from duplicate keys in one log expression, or memory leak. " +
+                    "It's very dangerous, there must have a log expression which did not end with info(), error() and so on", key);
+        }
         logContents.get().put(key, value.toString());
         return this;
     }
