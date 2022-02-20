@@ -6,11 +6,13 @@ import java.util.*;
 
 public class MortalMap<K, V> extends HashMap<K, V> {
 
+    public static final long DEFAULT_LIVE = 100L;
+
     private final PriorityQueue<LiveKey<K>> queue = new PriorityQueue<>();
 
     @Override
     public V put(K key, V value) {
-        return put(key, value, 100);
+        return put(key, value, DEFAULT_LIVE);
     }
 
     public V put(K key, V value, long liveMillis) {
@@ -41,6 +43,8 @@ public class MortalMap<K, V> extends HashMap<K, V> {
     @Override
     public void putAll(Map<? extends K, ? extends V> m) {
        super.putAll(m);
+        long currentTimeMillis = System.currentTimeMillis();
+        m.forEach((k, v) -> queue.add(new LiveKey<>(k, currentTimeMillis + DEFAULT_LIVE)));
        removeDeath(System.currentTimeMillis());
     }
 
