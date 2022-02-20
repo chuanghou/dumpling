@@ -1,4 +1,4 @@
-package com.stellariver.example.com.stellariver.dumpling;
+package com.stellariver.dumpling;
 
 import org.slf4j.Logger;
 import org.slf4j.MDC;

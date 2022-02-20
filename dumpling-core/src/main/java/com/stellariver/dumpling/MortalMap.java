@@ -1,4 +1,4 @@
-package com.stellariver.example.com.stellariver.dumpling;
+package com.stellariver.dumpling;
 
 import com.sun.tools.javac.util.Assert;
 
@@ -43,15 +43,9 @@ public class MortalMap<K, V> extends HashMap<K, V> {
     @Override
     public void putAll(Map<? extends K, ? extends V> m) {
        super.putAll(m);
-        long currentTimeMillis = System.currentTimeMillis();
-        m.forEach((k, v) -> queue.add(new LiveKey<>(k, currentTimeMillis + DEFAULT_LIVE)));
+       long currentTimeMillis = System.currentTimeMillis();
+       m.forEach((k, v) -> queue.add(new LiveKey<>(k, currentTimeMillis + DEFAULT_LIVE)));
        removeDeath(System.currentTimeMillis());
-    }
-
-    @Override
-    public void clear() {
-        super.clear();
-        queue.clear();
     }
 
     static private class LiveKey<K> implements Comparable<LiveKey<K>>{

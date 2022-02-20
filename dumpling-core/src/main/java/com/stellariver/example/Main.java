@@ -1,6 +1,6 @@
 package com.stellariver.example;
 
-import com.stellariver.example.com.stellariver.dumpling.DumplingLogger;
+import com.stellariver.dumpling.DumplingLogger;
 import org.slf4j.Logger;
 
 public class Main {
