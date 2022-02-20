@@ -1,6 +1,7 @@
 package com.stellariver.example;
 
 import com.stellariver.dumpling.DumplingLogger;
+import com.stellariver.dumpling.MortalMap;
 import org.slf4j.Logger;
 
 public class Main {
@@ -15,10 +16,13 @@ public class Main {
         System.out.println("test");
     }
 
-    public static void main(String[] args) {
-        log.with("itemId", 1L)
-                .with("test", 1)
-                .with("im", 34)
-                .info("test");
+    public static void main(String[] args) throws InterruptedException {
+        MortalMap<String, String> map = new MortalMap<>();
+        map.put("100", "100", 100);
+        map.forEach((k, v) -> System.out.println(k));
+        Thread.sleep(200);
+        map.forEach((k, v) -> System.out.println(k));
+        map.put("200", "200", 100);
+        map.forEach((k, v) -> System.out.println(k));
     }
 }
