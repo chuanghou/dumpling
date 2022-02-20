@@ -4,42 +4,42 @@ import com.sun.tools.javac.util.Assert;
 
 import java.util.*;
 
-public class LogContentMap extends HashMap<String, String> {
+public class MortalMap<K, V> extends HashMap<K, V> {
 
-    private final PriorityQueue<LiveKey> queue = new PriorityQueue<>();
+    private final PriorityQueue<LiveKey<K>> queue = new PriorityQueue<>();
 
     @Override
-    public String put(String key, String value) {
+    public V put(K key, V value) {
         return put(key, value, 100);
     }
 
-    public String put(String key, String value, long liveMillis) {
+    public V put(K key, V value, long liveMillis) {
         Assert.checkNonNull(key);
         Assert.checkNonNull(value);
         Assert.check(liveMillis > 10, "live time must bigger than 10 mill seconds at least");
 
         long currentTimeMillis = System.currentTimeMillis();
-        String putResult = super.put(key, value);
-        queue.add(new LiveKey(key, currentTimeMillis + liveMillis));
+        V putResult = super.put(key, value);
+        queue.add(new LiveKey<>(key, currentTimeMillis + liveMillis));
         removeDeath(currentTimeMillis);
 
         return putResult;
     }
 
     private void removeDeath(long currentTimeMillis) {
-        LiveKey oldestLiveKey;
+        LiveKey<K> oldestLiveKey;
         while (true) {
             oldestLiveKey  = queue.peek();
             if (oldestLiveKey == null || oldestLiveKey.deathMillis > currentTimeMillis) {
                 break;
             }
-            LiveKey removeLiveKey = queue.remove();
+            LiveKey<K> removeLiveKey = queue.remove();
             super.remove(removeLiveKey.key);
         }
     }
 
     @Override
-    public void putAll(Map<? extends String, ? extends String> m) {
+    public void putAll(Map<? extends K, ? extends V> m) {
        super.putAll(m);
        removeDeath(System.currentTimeMillis());
     }
@@ -50,13 +50,13 @@ public class LogContentMap extends HashMap<String, String> {
         queue.clear();
     }
 
-    static private class LiveKey implements Comparable<LiveKey>{
+    static private class LiveKey<K> implements Comparable<LiveKey<K>>{
 
-        private final String key;
+        private final K key;
 
         private final long deathMillis;
 
-        public LiveKey(String key, long deathMillis) {
+        public LiveKey(K key, long deathMillis) {
             this.key = key;
             this.deathMillis = deathMillis;
         }

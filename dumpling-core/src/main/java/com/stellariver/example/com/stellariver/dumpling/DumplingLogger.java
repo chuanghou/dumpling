@@ -11,26 +11,27 @@ public class DumplingLogger implements Logger{
 
     private final Logger log;
 
-    private final ThreadLocal<LogContentMap> logContents = new ThreadLocal<>();
+    private final ThreadLocal<MortalMap<String, String>> logContents = new ThreadLocal<>();
 
-    private final ThreadLocal<LogContentMap> tempLogContents = new ThreadLocal<>();
+    private final ThreadLocal<MortalMap<String, String>> tempLogContents = new ThreadLocal<>();
 
     public DumplingLogger(Logger log){
         this.log = log;
-        this.logContents.set(new LogContentMap());
-        this.tempLogContents.set(new LogContentMap());
+        this.logContents.set(new MortalMap<>());
+        this.tempLogContents.set(new MortalMap<>());
     }
 
     public DumplingLogger with(String key, Object value) {
         if (key == null) {
             log.error("log key shouldn't be null");
         }
-        value = Optional.ofNullable(key).orElse("null");
-        if (logContents.get().containsKey(key)) {
+        MortalMap<String, String> contents = logContents.get();
+        if (contents.containsKey(key)) {
             log.error("log key:{} already exists, it may from duplicate keys in one log expression, or memory leak. " +
                     "It's very dangerous, there must have a log expression which did not end with info(), error() and so on", key);
         }
-        logContents.get().put(key, value.toString());
+        value = Optional.ofNullable(value).orElse("null");
+        contents.put(key, value.toString());
         return this;
     }
 
