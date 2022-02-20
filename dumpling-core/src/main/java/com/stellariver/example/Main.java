@@ -11,6 +11,10 @@ public class Main {
         log = new DumplingLogger(logger);
     }
 
+    static {
+        System.out.println("test");
+    }
+
     public static void main(String[] args) {
         log.with("itemId", 1L)
                 .with("test", 1)
