@@ -14,7 +14,11 @@ public class Logger implements org.slf4j.Logger {
 
     private final ThreadLocal<MortalMap<String, String>> tempLogContents = new ThreadLocal<>();
 
-    public Logger(Class<?> clazz){
+    static public Logger getLogger(Class<?> clazz) {
+        return new Logger(clazz);
+    }
+
+    private Logger(Class<?> clazz){
         this.log = LoggerFactory.getLogger(clazz);
         this.logContents.set(new MortalMap<>());
         this.tempLogContents.set(new MortalMap<>());
