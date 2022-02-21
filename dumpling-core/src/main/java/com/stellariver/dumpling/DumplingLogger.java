@@ -1,12 +1,14 @@
 package com.stellariver.dumpling;
 
+import com.stellariver.example.Main;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.slf4j.Marker;
 
 import java.util.Map;
 import java.util.Optional;
-
 public class DumplingLogger implements Logger{
 
     private final Logger log;
@@ -15,8 +17,8 @@ public class DumplingLogger implements Logger{
 
     private final ThreadLocal<MortalMap<String, String>> tempLogContents = new ThreadLocal<>();
 
-    public DumplingLogger(Logger log){
-        this.log = log;
+    public DumplingLogger(Class<?> clazz){
+        this.log = LoggerFactory.getLogger(clazz);
         this.logContents.set(new MortalMap<>());
         this.tempLogContents.set(new MortalMap<>());
     }
