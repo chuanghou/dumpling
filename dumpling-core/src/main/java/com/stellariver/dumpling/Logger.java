@@ -1,29 +1,26 @@
 package com.stellariver.dumpling;
 
-import com.stellariver.example.Main;
-import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.slf4j.Marker;
 
 import java.util.Map;
 import java.util.Optional;
-public class DumplingLogger implements Logger{
+public class Logger implements org.slf4j.Logger {
 
-    private final Logger log;
+    private final org.slf4j.Logger log;
 
     private final ThreadLocal<MortalMap<String, String>> logContents = new ThreadLocal<>();
 
     private final ThreadLocal<MortalMap<String, String>> tempLogContents = new ThreadLocal<>();
 
-    public DumplingLogger(Class<?> clazz){
+    public Logger(Class<?> clazz){
         this.log = LoggerFactory.getLogger(clazz);
         this.logContents.set(new MortalMap<>());
         this.tempLogContents.set(new MortalMap<>());
     }
 
-    public DumplingLogger with(String key, Object value) {
+    public Logger with(String key, Object value) {
         if (key == null) {
             log.error("log key shouldn't be null");
         }
